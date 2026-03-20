@@ -1,0 +1,7 @@
+pyyaml
+pygments
+jinja2
+argparse
+pytest
+flake8
+mypy

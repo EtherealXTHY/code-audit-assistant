@@ -1,0 +1,79 @@
+{
+  "generated_time": "2026-03-20 10:03:54",
+  "summary": {
+    "total_issues": 6,
+    "by_severity": {
+      "HIGH": 2,
+      "MEDIUM": 3,
+      "LOW": 1
+    },
+    "by_language": {
+      "python": 6
+    },
+    "by_rule": {
+      "SQL注入": 1,
+      "硬编码凭证": 1,
+      "命令注入": 1,
+      "不安全的随机数生成": 1,
+      "调试信息泄露": 1,
+      "XSS攻击": 1
+    }
+  },
+  "issues": [
+    {
+      "file": "test_sample.py",
+      "line": 10,
+      "code": "cursor.execute(\"SELECT * FROM users WHERE username = '\" + username + \"'\")",
+      "rule_name": "SQL注入",
+      "severity": "HIGH",
+      "description": "检测Python代码中的SQL注入漏洞",
+      "recommendation": "使用参数化查询或ORM框架"
+    },
+    {
+      "file": "test_sample.py",
+      "line": 14,
+      "code": "password = \"admin123\"",
+      "rule_name": "硬编码凭证",
+      "severity": "MEDIUM",
+      "description": "检测代码中的硬编码凭证",
+      "recommendation": "使用环境变量或配置文件存储敏感信息"
+    },
+    {
+      "file": "test_sample.py",
+      "line": 18,
+      "code": "os.system(\"echo \" + user_input)",
+      "rule_name": "命令注入",
+      "severity": "HIGH",
+      "description": "检测Python代码中的命令注入漏洞",
+      "recommendation": "避免直接拼接命令，使用参数化执行"
+    },
+    {
+      "file": "test_sample.py",
+      "line": 21,
+      "code": "random_number = random.randint(1, 100)",
+      "rule_name": "不安全的随机数生成",
+      "severity": "MEDIUM",
+      "description": "检测Python代码中使用不安全的随机数生成",
+      "recommendation": "使用加密安全的随机数生成器"
+    },
+    {
+      "file": "test_sample.py",
+      "line": 24,
+      "code": "print(\"调试信息: \" + str(user_input))",
+      "rule_name": "调试信息泄露",
+      "severity": "LOW",
+      "description": "检测代码中的调试信息输出",
+      "recommendation": "在生产环境中禁用调试信息输出"
+    },
+    {
+      "file": "test_sample.py",
+      "line": 38,
+      "code": "return flask.render_template_string('<h1>Hello, ' + username + '</h1>')",
+      "rule_name": "XSS攻击",
+      "severity": "MEDIUM",
+      "description": "检测Python代码中的XSS漏洞",
+      "recommendation": "对用户输入进行HTML转义"
+    }
+  ],
+  "author": "EtherealXTHY-From Zhengzhou University"
+}

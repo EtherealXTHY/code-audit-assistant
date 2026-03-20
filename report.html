@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码审计报告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin: 20px 0 10px;
+        }
+        
+        .summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .summary-card {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .summary-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .summary-card ul {
+            list-style: none;
+        }
+        
+        .summary-card li {
+            margin: 5px 0;
+        }
+        
+        .issue {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+            background-color: #f9f2f4;
+        }
+        
+        .issue.high {
+            border-left-color: #e74c3c;
+            background-color: #f9f2f4;
+        }
+        
+        .issue.medium {
+            border-left-color: #f39c12;
+            background-color: #fef9e7;
+        }
+        
+        .issue.low {
+            border-left-color: #3498db;
+            background-color: #ebf5fb;
+        }
+        
+        .issue-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .issue-file {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .issue-severity {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .severity-high {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .severity-medium {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .severity-low {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .issue-code {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+        
+        .issue-description {
+            margin: 10px 0;
+        }
+        
+        .issue-recommendation {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e8f5e8;
+            border-radius: 4px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>代码审计报告</h1>
+        
+        <div class="summary">
+            <div class="summary-card">
+                <h3>总体统计</h3>
+                <ul>
+                    <li>总问题数: 6</li>
+                </ul>
+            </div>
+            
+            <div class="summary-card">
+                <h3>按严重程度</h3>
+                <ul>
+                    
+                    <li>HIGH: 2</li>
+                    
+                    <li>MEDIUM: 3</li>
+                    
+                    <li>LOW: 1</li>
+                    
+                </ul>
+            </div>
+            
+            <div class="summary-card">
+                <h3>按语言</h3>
+                <ul>
+                    
+                    <li>python: 6</li>
+                    
+                </ul>
+            </div>
+            
+            <div class="summary-card">
+                <h3>按规则</h3>
+                <ul>
+                    
+                    <li>SQL注入: 1</li>
+                    
+                    <li>硬编码凭证: 1</li>
+                    
+                    <li>命令注入: 1</li>
+                    
+                    <li>不安全的随机数生成: 1</li>
+                    
+                    <li>调试信息泄露: 1</li>
+                    
+                    <li>XSS攻击: 1</li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <h2>详细问题</h2>
+        
+        
+            
+            <div class="issue high">
+                <div class="issue-info">
+                    <span class="issue-file">test_sample.py:10</span>
+                    <span class="issue-severity severity-high">HIGH</span>
+                </div>
+                <h3>SQL注入</h3>
+                <div class="issue-description">检测Python代码中的SQL注入漏洞</div>
+                <div class="issue-code">cursor.execute("SELECT * FROM users WHERE username = '" + username + "'")</div>
+                <div class="issue-recommendation">
+                    <strong>修复建议:</strong> 使用参数化查询或ORM框架
+                </div>
+            </div>
+            
+            <div class="issue medium">
+                <div class="issue-info">
+                    <span class="issue-file">test_sample.py:14</span>
+                    <span class="issue-severity severity-medium">MEDIUM</span>
+                </div>
+                <h3>硬编码凭证</h3>
+                <div class="issue-description">检测代码中的硬编码凭证</div>
+                <div class="issue-code">password = "admin123"</div>
+                <div class="issue-recommendation">
+                    <strong>修复建议:</strong> 使用环境变量或配置文件存储敏感信息
+                </div>
+            </div>
+            
+            <div class="issue high">
+                <div class="issue-info">
+                    <span class="issue-file">test_sample.py:18</span>
+                    <span class="issue-severity severity-high">HIGH</span>
+                </div>
+                <h3>命令注入</h3>
+                <div class="issue-description">检测Python代码中的命令注入漏洞</div>
+                <div class="issue-code">os.system("echo " + user_input)</div>
+                <div class="issue-recommendation">
+                    <strong>修复建议:</strong> 避免直接拼接命令，使用参数化执行
+                </div>
+            </div>
+            
+            <div class="issue medium">
+                <div class="issue-info">
+                    <span class="issue-file">test_sample.py:21</span>
+                    <span class="issue-severity severity-medium">MEDIUM</span>
+                </div>
+                <h3>不安全的随机数生成</h3>
+                <div class="issue-description">检测Python代码中使用不安全的随机数生成</div>
+                <div class="issue-code">random_number = random.randint(1, 100)</div>
+                <div class="issue-recommendation">
+                    <strong>修复建议:</strong> 使用加密安全的随机数生成器
+                </div>
+            </div>
+            
+            <div class="issue low">
+                <div class="issue-info">
+                    <span class="issue-file">test_sample.py:24</span>
+                    <span class="issue-severity severity-low">LOW</span>
+                </div>
+                <h3>调试信息泄露</h3>
+                <div class="issue-description">检测代码中的调试信息输出</div>
+                <div class="issue-code">print("调试信息: " + str(user_input))</div>
+                <div class="issue-recommendation">
+                    <strong>修复建议:</strong> 在生产环境中禁用调试信息输出
+                </div>
+            </div>
+            
+            <div class="issue medium">
+                <div class="issue-info">
+                    <span class="issue-file">test_sample.py:38</span>
+                    <span class="issue-severity severity-medium">MEDIUM</span>
+                </div>
+                <h3>XSS攻击</h3>
+                <div class="issue-description">检测Python代码中的XSS漏洞</div>
+                <div class="issue-code">return flask.render_template_string('<h1>Hello, ' + username + '</h1>')</div>
+                <div class="issue-recommendation">
+                    <strong>修复建议:</strong> 对用户输入进行HTML转义
+                </div>
+            </div>
+            
+        
+        
+        <div class="footer">
+            <p>报告生成时间: 2026-03-20 10:44:25</p>
+            <p>代码审计助手 © 2025</p>
+            <p>作者: EtherealXTHY-From Zhengzhou University</p>
+        </div>
+    </div>
+</body>
+</html>
+        

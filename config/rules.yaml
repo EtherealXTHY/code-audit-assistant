@@ -1,0 +1,118 @@
+severity:
+  HIGH: 3
+  MEDIUM: 2
+  LOW: 1
+  INFO: 0
+
+common_rules:
+  hardcoded_credentials:
+    name: 硬编码凭证
+    severity: MEDIUM
+    description: 检测代码中的硬编码凭证
+    patterns:
+      - password\s*[:=]
+      - secret\s*[:=]
+      - api[_-]?key\s*[:=]
+  debug_info:
+    name: 调试信息泄露
+    severity: LOW
+    description: 检测代码中的调试信息输出
+    patterns:
+      - print\s*\(
+      - console\.log\s*\(
+      - System\.out\.println\s*\(
+
+python_rules:
+  sql_injection:
+    name: SQL注入
+    severity: HIGH
+    description: 检测Python代码中的SQL注入漏洞
+    patterns:
+      - cursor\.execute\s*\([^)]*['"].*\+.*['"]
+  command_injection:
+    name: 命令注入
+    severity: HIGH
+    description: 检测Python代码中的命令注入漏洞
+    patterns:
+      - os\.system\s*\([^)]*\+[^)]*\)
+      - subprocess\.(call|run|Popen)\s*\([^)]*\+[^)]*\)
+  xss:
+    name: XSS攻击
+    severity: MEDIUM
+    description: 检测Python代码中的XSS漏洞
+    patterns:
+      - flask\.render_template_string\s*\([^)]*\+[^)]*\)
+  insecure_random:
+    name: 不安全的随机数生成
+    severity: MEDIUM
+    description: 检测Python代码中使用不安全的随机数生成
+    patterns:
+      - random\.(randint|randrange|choice|shuffle)
+
+javascript_rules:
+  sql_injection:
+    name: SQL注入
+    severity: HIGH
+    description: 检测JavaScript代码中的SQL注入漏洞
+    patterns:
+      - sql\s*[=:]\s*['"].*\+.*['"]
+  xss:
+    name: XSS攻击
+    severity: HIGH
+    description: 检测JavaScript代码中的XSS漏洞
+    patterns:
+      - innerHTML\s*[=:]
+      - document\.write\s*\(
+      - eval\s*\(
+  command_injection:
+    name: 命令注入
+    severity: HIGH
+    description: 检测JavaScript代码中的命令注入漏洞
+    patterns:
+      - child_process\.(exec|execSync|spawn)\s*\([^)]*\+[^)]*\)
+
+java_rules:
+  sql_injection:
+    name: SQL注入
+    severity: HIGH
+    description: 检测Java代码中的SQL注入漏洞
+    patterns:
+      - Statement\s+.*=.*createStatement\(
+      - executeQuery\s*\([^)]*\+[^)]*\)
+  xss:
+    name: XSS攻击
+    severity: MEDIUM
+    description: 检测Java代码中的XSS漏洞
+    patterns:
+      - out\.print\s*\([^)]*\+[^)]*\)
+
+c_rules:
+  buffer_overflow:
+    name: 缓冲区溢出
+    severity: HIGH
+    description: 检测C/C++代码中的缓冲区溢出漏洞
+    patterns:
+      - strcpy\s*\(
+      - strcat\s*\(
+      - gets\s*\(
+  format_string:
+    name: 格式化字符串漏洞
+    severity: HIGH
+    description: 检测C/C++代码中的格式化字符串漏洞
+    patterns:
+      - printf\s*\([^)]*\+[^)]*\)
+      - sprintf\s*\([^)]*\+[^)]*\)
+  command_injection:
+    name: 命令注入
+    severity: HIGH
+    description: 检测C/C++代码中的命令注入漏洞
+    patterns:
+      - system\s*\([^)]*\+[^)]*\)
+      - popen\s*\([^)]*\+[^)]*\)
+
+enabled:
+  common_rules: true
+  python_rules: true
+  javascript_rules: true
+  java_rules: true
+  c_rules: true
